@@ -76,3 +76,15 @@ export const deleteUserServices = (id, callBack) => {
         }
     );
 };
+export const getUserByEmailServices = (email, callBack) => {
+    pool.query(
+        `SELECT id, firstName, lastName, gender, email, password, number FROM registration where email = ?;`,
+        [email],
+        (error, results, fields) => {
+            if (error) {
+                callBack(error);
+            }
+            return callBack(null, results[0]);
+        }
+    );
+};
