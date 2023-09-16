@@ -1,5 +1,5 @@
-import pool from "@src/config/database.js";
-// import pool from "../config/database";
+// import pool from "@src/config/database";
+import pool from "../config/database.js";
 
 export const create = (data, callBack) => {
     pool.query(
@@ -16,6 +16,18 @@ export const create = (data, callBack) => {
         (error, results, fields) => {
             if (error) {
                 callBack(error);
+            }
+            return callBack(null, results);
+        }
+    );
+};
+export const getUsersServices = callBack => {
+    pool.query(
+        `SELECT id, firstName, lastName, gender, email, password, number FROM registration;`,
+        [],
+        (error, results, fields) => {
+            if (error) {
+                return callBack(error);
             }
             return callBack(null, results);
         }
